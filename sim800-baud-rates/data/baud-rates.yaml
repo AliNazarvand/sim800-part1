@@ -1,0 +1,85 @@
+metadata:
+  project: sim800-baud-rates
+  family: SIM800
+  field: UART baud rate
+  source_documents:
+    - SIM800_Hardware Design_V1.09.pdf
+    - SIM800A_Hardware Design_V1.02.pdf
+    - SIM800C-DS_Hardware_Design_V1.01.pdf
+    - SIM800C_Hardware_Design_V1.02.pdf
+    - SIM800F_Hardware Design_V1.05.pdf
+    - SIM800H&SIM800L_Hardware Design_V2.02.PDF
+    - SIM800H_Hardware Design_V2.03.pdf
+    - SIM800L_Hardware Design_V1.00.pdf
+    - SIM808_Hardware Design_V1.03.pdf
+    - SIM868_Hardware_Design_V1.00.pdf
+
+uart:
+  frame_format: "8N1"
+  data_bits: 8
+  parity: none
+  stop_bits: 1
+  flow_control_default: none
+  flow_control_optional: rts_cts
+
+  supported_baud_rates:
+    - 1200
+    - 2400
+    - 4800
+    - 9600
+    - 19200
+    - 38400
+    - 57600
+    - 115200
+    - 230400
+    - 460800
+
+  autobauding:
+    supported: true
+    min_baud: 1200
+    max_baud: 115200
+    enabled_by_default: false
+    notes: >-
+      Autobauding is supported on the main UART and must be enabled
+      explicitly. After power-up the first AT command sent by the host
+      must be "AT" so the modem can synchronise.
+
+  default_baud_rate: 115200
+
+models:
+  SIM800:
+    default_baud_rate: 115200
+    autobauding_range: [1200, 115200]
+    notes: Quad-band GSM/GPRS, Bluetooth 3.0.
+  SIM800A:
+    default_baud_rate: 115200
+    autobauding_range: [1200, 115200]
+    notes: Dual-band GSM/GPRS.
+  SIM800C:
+    default_baud_rate: 115200
+    autobauding_range: [1200, 115200]
+    notes: SIM 1.8V/3V, extended temperature range.
+  SIM800C-DS:
+    default_baud_rate: 115200
+    autobauding_range: [1200, 115200]
+    notes: Dual-SIM variant of SIM800C.
+  SIM800F:
+    default_baud_rate: 115200
+    autobauding_range: [1200, 115200]
+    notes: Quad-band GSM/GPRS.
+  SIM800H:
+    default_baud_rate: 115200
+    autobauding_range: [1200, 115200]
+    notes: Second serial port available from B05 revision.
+  SIM800L:
+    default_baud_rate: 115200
+    autobauding_range: [1200, 115200]
+    notes: Smallest form factor, 3 GPIO, 1 ADC.
+  SIM808:
+    default_baud_rate: 115200
+    autobauding_range: [1200, 115200]
+    notes: GSM + GPS.
+  SIM868:
+    default_baud_rate: 115200
+    autobauding_range: [1200, 115200]
+    notes: GSM + GPS + Bluetooth.

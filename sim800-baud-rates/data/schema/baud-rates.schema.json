@@ -1,0 +1,83 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SIM800 Baud Rates",
+  "type": "object",
+  "required": ["metadata", "uart", "models"],
+  "additionalProperties": false,
+  "properties": {
+    "metadata": {
+      "type": "object",
+      "required": ["project", "family", "field", "source_documents"],
+      "additionalProperties": false,
+      "properties": {
+        "project": { "type": "string" },
+        "family": { "type": "string" },
+        "field": { "type": "string" },
+        "source_documents": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "uart": {
+      "type": "object",
+      "required": [
+        "frame_format",
+        "data_bits",
+        "parity",
+        "stop_bits",
+        "supported_baud_rates",
+        "autobauding",
+        "default_baud_rate"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "frame_format": { "type": "string" },
+        "data_bits": { "type": "integer", "minimum": 5, "maximum": 9 },
+        "parity": { "type": "string", "enum": ["none", "even", "odd"] },
+        "stop_bits": { "type": "integer", "minimum": 1, "maximum": 2 },
+        "flow_control_default": { "type": "string" },
+        "flow_control_optional": { "type": "string" },
+        "supported_baud_rates": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "type": "integer", "minimum": 300 }
+        },
+        "autobauding": {
+          "type": "object",
+          "required": ["supported", "min_baud", "max_baud"],
+          "additionalProperties": false,
+          "properties": {
+            "supported": { "type": "boolean" },
+            "min_baud": { "type": "integer", "minimum": 300 },
+            "max_baud": { "type": "integer", "minimum": 300 },
+            "enabled_by_default": { "type": "boolean" },
+            "notes": { "type": "string" }
+          }
+        },
+        "default_baud_rate": { "type": "integer", "minimum": 300 }
+      }
+    },
+    "models": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "type": "object",
+        "required": ["default_baud_rate"],
+        "additionalProperties": false,
+        "properties": {
+          "default_baud_rate": { "type": "integer", "minimum": 300 },
+          "autobauding_range": {
+            "type": "array",
+            "minItems": 2,
+            "maxItems": 2,
+            "items": { "type": "integer", "minimum": 300 }
+          },
+          "notes": { "type": "string" }
+        }
+      }
+    }
+  }
+}
